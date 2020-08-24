@@ -1,0 +1,99 @@
+"""
+    By : Omer Chetin
+
+    very simple pygame try ,
+    contains :
+    stupid block that
+    can only move back and
+    forwrd ,left and right
+
+    *** to change block color press b
+    *** to change screen color press s
+
+    this is my first project
+    in git hub
+    This project created in
+    Atom IDE
+
+"""
+
+
+
+
+
+
+
+import pygame
+from sys import exit
+from random import randrange
+
+
+
+
+
+screenx,screeny = 500,450
+pygame.init()
+
+
+
+
+
+# creating pygame screen
+screen = pygame.display.set_mode(( screenx,screeny ))
+pygame.display.set_caption("Useless_Game")
+# borning infos
+block_x_position,block_y_position = 0,0
+colors = [(205, 56, 143),(224, 9, 9),(24, 171, 228),(150, 169, 47),(103, 101, 101),(144, 67, 5),(0, 0, 0, 0.14)]
+block_width,block_height = 25,25
+velocity = 0.1
+jump_power,block_jump_position = 30,0
+block_color = (96, 10, 162)
+screen_color = (188, 208, 20)
+
+
+
+def Change_Block_Color():
+    block_color = colors[randrange(6)]
+def Change_screen_Color():
+    screen_color = colors[randrange(6)]
+
+
+
+while True:
+    for event in pygame.event.get():
+        if event.type==pygame.QUIT:
+            exit()
+            print("Thats all !!")
+
+
+
+
+
+    block = pygame.draw.rect(screen,block_color,(block_x_position,block_y_position,block_width,block_height))
+    pygame.display.update()
+    screen.fill( screen_color )
+
+
+
+
+
+    # for Keyboard input
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_RIGHT] and not block_x_position > screenx - block_width  :
+        block_x_position += velocity
+    if keys[pygame.K_LEFT] and  block_x_position > 0 :
+        block_x_position -= velocity
+    if keys[pygame.K_DOWN] and block_y_position < screeny - block_height :
+        block_y_position += velocity
+    if keys[pygame.K_UP] and block_y_position > 0  :
+        block_y_position -= velocity
+    if keys[pygame.K_b]:
+        Change_Block_Color()
+    if keys[pygame.K_s]:
+        Change_screen_Color()
+
+
+
+
+
+pygame.quit()
